@@ -44,7 +44,7 @@ public class ActivityController {
     }
 
     @GetMapping("/add/{id}")
-    public String addActivityToUserResolution(Model model, @PathVariable Long id {
+    public String addActivityToUserResolution(Model model, @PathVariable Long id) {
         UserResolution userResolution = userResolutionRepository.findOne(id);
         Activity activity = new Activity();
         activity.setUserResolution(userResolution);
