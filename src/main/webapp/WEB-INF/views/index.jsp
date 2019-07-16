@@ -6,7 +6,7 @@
   Time: 3:53 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; ISO-8859-1;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
@@ -14,6 +14,9 @@
 <%--        button {--%>
 <%--            float: right;--%>
 <%--        }--%>
+<%--    </style>--%>
+<%--    <style>--%>
+<%--        <%@include file="/resources/css/main.css"%>--%>
 <%--    </style>--%>
     <script src="<c:url value="/webjars/jquery/3.0.0/jquery.min.js"/>"></script>
     <script src="<c:url value="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>"></script>

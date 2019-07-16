@@ -4,9 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +22,9 @@ public class UserResolution {
     private Integer weeklyPlan;
 
     @NotNull
+    @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
     @Column(columnDefinition = "TEXT")
@@ -120,13 +120,13 @@ public class UserResolution {
 
     public List<Activity> getLastActivities() {
         return activities.stream()
-                .filter(a -> a.getDate().isAfter(LocalDateTime.now().minusDays(7)))
+                .filter(a -> a.getDate().after(new Date()))
                 .collect(Collectors.toList());
     }
 
     public int getLastActivitiesUnits() {
         return activities.stream()
-                .filter(a -> a.getDate().isAfter(LocalDateTime.now().minusDays(7)))
+                .filter(a -> a.getDate().after(new Date()))
                 .mapToInt(a -> a.getUnitsOfActivity())
                 .sum();
     }

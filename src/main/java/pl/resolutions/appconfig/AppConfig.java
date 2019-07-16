@@ -19,6 +19,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.resolutions.converter.DateConverter;
 import pl.resolutions.converter.ResolutionConverter;
+import pl.resolutions.converter.UserResolutionConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
@@ -79,6 +80,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(getResolutionConverter());
         registry.addConverter(getDateConverter());
+        registry.addConverter(getUserResolutionConverter());
     }
 
     @Bean
@@ -91,10 +93,17 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return new DateConverter();
     }
 
+    @Bean
+    public UserResolutionConverter getUserResolutionConverter() {
+        return new UserResolutionConverter();
+    }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
+
 }

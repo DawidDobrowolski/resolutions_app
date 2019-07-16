@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: dawid
@@ -17,7 +18,7 @@
     <form:hidden path="id" />
     Resolution: <br><form:select path="resolution" items="${resolutions}" itemLabel="name" itemValue="id"/>
     <form:errors path="resolution"/><br>
-    Start date: <form:input type="date" path="startDate" th:th:field="*{issueDate}"/>
+    Start date: <form:input type="date" path="startDate"/>
     <form:errors path="startDate"/><br>
     Description: <br><form:textarea path="description" rows="3" cols="20"/>
     <form:errors path="description"/><br>

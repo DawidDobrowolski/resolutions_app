@@ -45,7 +45,7 @@
     </c:forEach>
 </table>
 
-<a href="/action/add">Add new activity</a>
+<a href="/activity/add/${userResolution.id}">Add new activity</a>
 
 
 <%@include file="../fragments/footer.jspf"%>
