@@ -9,18 +9,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Tweeter login</title>
+    <title>Login</title>
+    <script src="<c:url value="/webjars/jquery/3.0.0/jquery.min.js"/>"></script>
+    <script src="<c:url value="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>"></script>
+    <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">
 </head>
 <body>
-<h2>Login</h2>
+<%@include file="../fragments/header.jspf" %>
+
 <c:if test="${success == false}">
-    <p>Login failed. Email or password is incorrect.</p>
+    <div class="alert alert-danger" role="alert">
+        <p>Login failed. Email or password is incorrect.</p>
+    </div>
 </c:if>
 <form method="post">
-
-    Email: <input type="email" name="email" required/><br>
-    Password: <input type="password" name="password" required/><br>
-    <input type="submit" value="login">
+    <div class="container">
+        <header><h2>Login</h2></header>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" name="email" class="form-control"/><br>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" name="password" class="form-control"/><br>
+                </div>
+                <input type="submit" value="Login" class="btn btn-submit">
+            </div>
+        </div>
+    </div>
 </form>
+
+<%@include file="../fragments/footer.jspf" %>
+
 </body>
 </html>
