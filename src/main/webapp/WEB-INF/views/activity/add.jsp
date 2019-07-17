@@ -16,7 +16,7 @@
 
 <form:form method="post" action="/activity/add" modelAttribute="activity">
     <form:hidden path="id" />
-    Resolution: <br><form:select path="userResolution" items="${userResolutions}" itemLabel="resolution.name" itemValue="id"/><br>
+    Resolution: <br><form:select path="userResolution" items="${userResolutions}" itemLabel="name" itemValue="id"/><br>
     Date: <form:input type="date" path="date" />
     <form:errors path="date"/><br>
     Units of activity: <form:input type="number" path="unitsOfActivity"/>
