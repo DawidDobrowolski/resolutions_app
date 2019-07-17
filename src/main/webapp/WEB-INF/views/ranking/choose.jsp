@@ -16,8 +16,8 @@
 
 <h2>Show ranking for one of the following resolution: </h2>
 
-<c:forEach items="${userResolutions}" var="userResolution">
-    <a href="/ranking/ranking/${userResolution.resolution.id}">${userResolution.resolution.name}</a><br>
+<c:forEach items="${resolutions}" var="resolution">
+    <a href="/ranking/ranking/${resolution.id}">${resolution.name}</a><br>
 </c:forEach>
 
 

@@ -17,6 +17,5 @@ public interface UserResolutionRepository extends JpaRepository<UserResolution,L
 
     List<UserResolution> getByStartDateBeforeAndEndDateAfterOrEndDateIsNull(Date to,Date from);
 
-    @Query("SELECT DISTINCT ur.resolution FROM UserResolution ur WHERE ur.user.email=:email")
-    List<UserResolution> customDistinctUserResolutionsByUserEmail(@Param("email") String email);
+
 }

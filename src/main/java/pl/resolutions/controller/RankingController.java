@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.resolutions.entity.Resolution;
 import pl.resolutions.entity.UserResolution;
+import pl.resolutions.repository.ResolutionRepository;
 import pl.resolutions.repository.UserResolutionRepository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +20,18 @@ import java.util.List;
 public class RankingController {
 
     private UserResolutionRepository userResolutionRepository;
+    private ResolutionRepository resolutionRepository;
 
     @Autowired
-    public RankingController(UserResolutionRepository userResolutionRepository) {
+    public RankingController(UserResolutionRepository userResolutionRepository, ResolutionRepository resolutionRepository) {
         this.userResolutionRepository = userResolutionRepository;
+        this.resolutionRepository = resolutionRepository;
     }
 
-    @ModelAttribute("userResolutions")
-    public List<UserResolution> getAllResolutions(HttpServletRequest request) {
+    @ModelAttribute("resolutions")
+    public List<Resolution> getAllResolutions(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return userResolutionRepository.customDistinctUserResolutionsByUserEmail((String)session.getAttribute("email"));
+        return resolutionRepository.customDistinctUserResolutionsByUserEmail((String)session.getAttribute("email"));
     }
 
     @GetMapping("/choose")
