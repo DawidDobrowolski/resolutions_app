@@ -14,6 +14,7 @@ import pl.resolutions.repository.UserResolutionRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,23 @@ public class ActivityController {
     @ModelAttribute("userResolutions")
     public List<UserResolution> getAllResolutions(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return userResolutionRepository.getByUserEmail((String)session.getAttribute("email"));
+        return userResolutionRepository.getByUserEmailAndActiveIsTrue((String)session.getAttribute("email"));
+    }
+
+    @ModelAttribute("activities")
+    public List<Activity> getAllActivities(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String)session.getAttribute("email"));
+        List<Activity> activities = new ArrayList<>();
+        for (UserResolution userResolution:userResolutions){
+            activities.addAll(activityRepository.getActivitiesByUserResolution(userResolution));
+        }
+        return activities;
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboardPage() {
+        return "/activity/dashboard";
     }
 
 
@@ -60,6 +77,26 @@ public class ActivityController {
         }
         activityRepository.save(activity);
         return "redirect:/resolution/dashboard";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(Model model,@PathVariable Long id) {
+        Activity activity = activityRepository.findOne(id);
+        model.addAttribute("activity", activity);
+        return "activity/add";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        activityRepository.delete(id);
+        return "redirect:/resolution/dashboard";
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(Model model,@PathVariable Long id) {
+        Activity activity =  activityRepository.findOne(id);
+        model.addAttribute("activity",activity);
+        return "activity/details";
     }
 
 }

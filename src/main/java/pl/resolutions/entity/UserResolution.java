@@ -3,10 +3,13 @@ package pl.resolutions.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Entity
@@ -19,13 +22,23 @@ public class UserResolution {
 
     @NotNull
     @Column(name = "weekly_plan")
+    @Min(1)
     private Integer weeklyPlan;
+
+    @NotNull
+    @Size(max = 30)
+    private String name;
 
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "end_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -62,6 +75,14 @@ public class UserResolution {
         this.weeklyPlan = weeklyPlan;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -83,6 +104,11 @@ public class UserResolution {
     }
 
     public void setActive(boolean active) {
+        if (active){
+            this.endDate = null;
+        }else{
+            this.endDate = new Date();
+        }
         this.active = active;
     }
 
@@ -118,15 +144,27 @@ public class UserResolution {
         this.activities = activities;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public List<Activity> getLastActivities() {
+        Date now = new Date();
+        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMicros(1));
         return activities.stream()
-                .filter(a -> a.getDate().after(new Date()))
+                .filter(a -> a.getDate().after(sevenDaysAgo))
                 .collect(Collectors.toList());
     }
 
     public int getLastActivitiesUnits() {
+        Date now = new Date();
+        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMicros(1));
         return activities.stream()
-                .filter(a -> a.getDate().after(new Date()))
+                .filter(a -> a.getDate().after(sevenDaysAgo))
                 .mapToInt(a -> a.getUnitsOfActivity())
                 .sum();
     }

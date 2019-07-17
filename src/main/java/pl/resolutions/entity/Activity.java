@@ -2,11 +2,12 @@ package pl.resolutions.entity;
 
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Entity
@@ -20,9 +21,11 @@ public class Activity {
     @NotNull
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past
     private Date date;
 
     @NotNull
+    @Min(1)
     @Column(name = "units_of_activity")
     private Integer unitsOfActivity;
 

@@ -37,25 +37,25 @@ public class ResolutionController {
         return resolutionRepository.findAll();
     }
 
-//    @ModelAttribute("userResolutions")
-//    public List<UserResolution> getAllResolutions(HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        return userResolutionRepository.getByUserEmail((String)session.getAttribute("email"));
-//    }
+    @ModelAttribute("userResolutions")
+    public List<UserResolution> getAllResolutions(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return userResolutionRepository.getByUserEmail((String)session.getAttribute("email"));
+    }
 
 
     @GetMapping("/dashboard")
     public String dashboardPage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
-        model.addAttribute("userResolutions", userResolutions);
+//        HttpSession session = request.getSession();
+//        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
+//        model.addAttribute("userResolutions", userResolutions);
         return "/resolution/dashboard";
     }
 
     @GetMapping("/add")
     public String addResolution(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
+//        HttpSession session = request.getSession();
+//        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
         model.addAttribute("userResolution", new UserResolution());
         return "/resolution/add";
     }

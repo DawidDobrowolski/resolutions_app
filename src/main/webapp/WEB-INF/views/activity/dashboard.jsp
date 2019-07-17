@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: dawid
   Date: 7/16/19
-  Time: 12:55 AM
+  Time: 4:16 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,30 +13,22 @@
 </head>
 <body>
 <%@include file="../fragments/header.jspf"%>
-<h3>Name: </h3>${userResolution.name}
-<h3>Resolution type: </h3>${userResolution.resolution.name}
-<h3>Start date: </h3>${userResolution.startDate}
-<c:if test="${!userResolution.active}">
-<h3>End date: </h3>${userResolution.endDate}
-</c:if>
-<h3>Weekly plan: </h3>${userResolution.weeklyPlan}
-<h3>Activity for last 7 days: </h3>${userResolution.lastActivitiesUnits}
-<h3>Resolution unit: </h3>${userResolution.resolution.unit}
-<h3>Status: </h3>${userResolution.active}
-<h3>E-mail reminder: </h3>${userResolution.emailReminder}
-<h3>Description: </h3>${userResolution.description}
-<br>
-<h3>Activities: </h3>
 
+<h2>DASHBOARD</h2>
+<h3>ACTIVITIES</h3>
 <table border="1">
     <tr>
+        <th>Name</th>
+        <th>Resolution type</th>
         <th>Date</th>
         <th>Units of activity</th>
         <th>Note</th>
         <th>Action</th>
     </tr>
-    <c:forEach items="${userResolution.activities}" var="activity">
+    <c:forEach items="${activities}" var="activity">
         <tr>
+            <td>${activity.userResolution.name}</td>
+            <td>${activity.userResolution.resolution.name}</td>
             <td>${activity.date}</td>
             <td>${activity.unitsOfActivity}</td>
             <td>${activity.note}</td>
@@ -48,15 +40,11 @@
         </tr>
     </c:forEach>
 </table>
-<c:if test="${userResolution.active}">
-<a href="/activity/add/${userResolution.id}">Add new activity</a>
-</c:if>
+<a href="/activity/add">Add new activity</a><br>
+<a href="/resolution/add">Add new resolution</a>
 <br><br>
-
-
+<a href="/resolution/dashboard">Show resolution dashboard</a>
 <%@include file="../fragments/footer.jspf"%>
-
-
 
 </body>
 </html>

@@ -12,6 +12,8 @@
     <title>Title</title>
 </head>
 <body>
+<%@include file="../fragments/header.jspf"%>
+
 <form:form method="post" action="/activity/add" modelAttribute="activity">
     <form:hidden path="id" />
     Resolution: <br><form:select path="userResolution" items="${userResolutions}" itemLabel="resolution.name" itemValue="id"/><br>
@@ -23,6 +25,7 @@
     <form:errors path="note"/><br>
     <input type="submit" value="Save"/>
 </form:form>
+<%@include file="../fragments/footer.jspf"%>
 
 
 </body>
