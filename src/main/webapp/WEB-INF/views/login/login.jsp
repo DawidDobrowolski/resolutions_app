@@ -18,14 +18,15 @@
 <body>
 <%@include file="../fragments/header.jspf" %>
 
-<c:if test="${success == false}">
-    <div class="alert alert-danger" role="alert">
-        <p>Login failed. Email or password is incorrect.</p>
-    </div>
-</c:if>
+
 <form method="post">
     <div class="container">
         <header><h2>Login</h2></header>
+        <c:if test="${success == false}">
+            <div class="alert alert-danger" role="alert">
+                <p>Login failed. Email or password is incorrect.</p>
+            </div>
+        </c:if>
         <div class="card">
             <div class="card-body">
                 <div class="form-group">

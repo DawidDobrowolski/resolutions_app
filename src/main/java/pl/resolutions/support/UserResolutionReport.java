@@ -4,18 +4,38 @@ import pl.resolutions.entity.UserResolution;
 
 public class UserResolutionReport {
 
-    private UserResolution userResolution;
+    private String name;
+    private String resolutionType;
+    private String resolutionUnit;
     private long numberOfDays;
     private double planForSetDays;
-    private double unitsInActions;
+    private int unitsInActions;
     private double resolutionRealization;
+    private double toGo;
 
-    public UserResolution getUserResolution() {
-        return userResolution;
+
+    public String getName() {
+        return name;
     }
 
-    public void setUserResolution(UserResolution userResolution) {
-        this.userResolution = userResolution;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getResolutionType() {
+        return resolutionType;
+    }
+
+    public void setResolutionType(String resolutionType) {
+        this.resolutionType = resolutionType;
+    }
+
+    public String getResolutionUnit() {
+        return resolutionUnit;
+    }
+
+    public void setResolutionUnit(String resolutionUnit) {
+        this.resolutionUnit = resolutionUnit;
     }
 
     public long getNumberOfDays() {
@@ -34,11 +54,11 @@ public class UserResolutionReport {
         this.planForSetDays = planForSetDays;
     }
 
-    public double getUnitsInActions() {
+    public int getUnitsInActions() {
         return unitsInActions;
     }
 
-    public void setUnitsInActions(double unitsInActions) {
+    public void setUnitsInActions(int unitsInActions) {
         this.unitsInActions = unitsInActions;
     }
 
@@ -48,5 +68,13 @@ public class UserResolutionReport {
 
     public void setResolutionRealization(double resolutionRealization) {
         this.resolutionRealization = resolutionRealization;
+    }
+
+    public double getToGo() {
+        return toGo;
+    }
+
+    public void setToGo(double toGo) {
+        this.toGo = toGo;
     }
 }

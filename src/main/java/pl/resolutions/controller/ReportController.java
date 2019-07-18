@@ -1,6 +1,7 @@
 package pl.resolutions.controller;
 
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,10 @@ public class ReportController {
 
     @PostMapping("/generate")
     public String generateReportDates(Model model, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+        if (to == null || from == null) {
+            model.addAttribute("wrongDate", true);
+            return "report/generate";
+        }
         if (!(from.before(to) && to.before(new Date())) || to == null || from == null) {
             model.addAttribute("wrongDate", true);
             return "report/generate";
@@ -52,12 +57,14 @@ public class ReportController {
 
         List<UserResolution> userResolutions = userResolutionRepository.getByStartDateBeforeAndEndDateAfterOrEndDateIsNull(to, from);
         List<UserResolutionReport> userResolutionReports = new ArrayList<>();
-        double unitsSum = 0;
+        int unitsSum = 0;
         double realizationSum = 0;
 
         for (UserResolution userResolution : userResolutions) {
             UserResolutionReport userResolutionReport = new UserResolutionReport();
-            userResolutionReport.setUserResolution(userResolution);
+            userResolutionReport.setName(userResolution.getName());
+            userResolutionReport.setResolutionType(userResolution.getResolution().getName());
+            userResolutionReport.setResolutionUnit(userResolution.getResolution().getUnit());
             if (userResolution.isActive()) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
             } else if (from.before(userResolution.getStartDate())) {
@@ -65,24 +72,38 @@ public class ReportController {
             } else if (from.after(userResolution.getStartDate())) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(userResolution.getEndDate().getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
             }
-            userResolutionReport.setPlanForSetDays(userResolutionReport.getNumberOfDays() * userResolution.getWeeklyPlan() / 7.0);
+            userResolutionReport.setPlanForSetDays(Math.floor(userResolutionReport.getNumberOfDays() * userResolution.getWeeklyPlan() * 100 / 7.0) / 100);
             List<Activity> activities = activityRepository.getActivitiesByUserResolution(userResolution);
             for (Activity activity : activities) {
                 if ((activity.getDate().before(to) && activity.getDate().after(from)) || activity.getDate().compareTo(from) == 0 || activity.getDate().compareTo(to) == 0) {
                     unitsSum += activity.getUnitsOfActivity();
                 }
             }
+
             userResolutionReport.setUnitsInActions(unitsSum);
-            userResolutionReport.setResolutionRealization(userResolutionReport.getUnitsInActions()/userResolutionReport.getPlanForSetDays());
+
+
+            if (userResolutionReport.getPlanForSetDays() > unitsSum) {
+                userResolutionReport.setToGo(userResolutionReport.getPlanForSetDays() - unitsSum);
+            } else {
+                userResolutionReport.setToGo(0);
+
+            }
+            userResolutionReport.setResolutionRealization(Math.floor(userResolutionReport.getUnitsInActions() * 1000 / userResolutionReport.getPlanForSetDays()) / 10);
             realizationSum += userResolutionReport.getResolutionRealization();
             userResolutionReports.add(userResolutionReport);
             unitsSum = 0;
         }
-
+        double average = Math.floor((realizationSum * 100) / userResolutionReports.size()) / 100;
+        if(average>100){
+            average = 100;
+        }
+        Gson gson = new Gson();
+        model.addAttribute("dashboardCharts", gson.toJson(userResolutionReports));
+        model.addAttribute("average", average);
         model.addAttribute("userResolutionReports", userResolutionReports);
-        model.addAttribute("userResolutionAverageRealization", Math.floor((realizationSum *10000) / userResolutionReports.size()) / 100);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        model.addAttribute("from",simpleDateFormat.format(from));
+        model.addAttribute("from", simpleDateFormat.format(from));
         model.addAttribute("to", simpleDateFormat.format(to));
         return "report/report";
 

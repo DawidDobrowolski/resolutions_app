@@ -27,13 +27,11 @@
     <header><h2>Activities DASHBOARD</h2></header>
     <div class="chart-title">Activities divided by resolution type</div>
     <div id="chart_div"></div>
-
     <div class="card">
-        <div class="card-body text-center">
+        <div class="card-body text-center" style="border: none">
             <a href="/activity/add" class="btn btn-submit btn-lg">Add new activity</a>
         </div>
     </div>
-
     <div class="card mt-3">
         <div class="card-body">
             <div table-responsive>
