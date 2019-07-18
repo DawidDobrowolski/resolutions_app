@@ -28,22 +28,22 @@
                 <div class="form-group">
                     <label>First Name:</label>
                     <form:input type="text" path="firstName" class="form-control"/><br>
-                    <form:errors path="firstName" element="div"/>
+                    <form:errors path="firstName" element="div class='alert alert-danger'"/>
                 </div>
                 <div class="form-group">
                     <label>Last Name:</label>
                     <form:input type="text" path="lastName" class="form-control"/><br>
-                    <form:errors path="lastName" element="div"/>
+                    <form:errors path="lastName" element="div class='alert alert-danger'"/>
                 </div>
                 <div class="form-group">
                     <label>E-mail:</label>
                     <form:input type="email" path="email" class="form-control"/><br>
-                    <form:errors path="email" element="div"/>
+                    <form:errors path="email" element="div class='alert alert-danger'"/>
                 </div>
                 <div class="form-group">
                     <label>Password:</label>
                     <form:input type="password" path="password" class="form-control"/><br>
-                    <form:errors path="password" element="div"/>
+                    <form:errors path="password" element="div class='alert alert-danger'"/>
                 </div>
                 <div class="form-group">
                     <label>Confirm password:</label>

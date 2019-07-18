@@ -15,13 +15,18 @@
     <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">
     <link href="/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/resolutionDashboard.js" />"></script>
 </head>
 <body>
 <%@include file="../fragments/header.jspf" %>
+<input type="hidden" id="dashboardCharts" value='${dashboardCharts}'/>
 
 <div class="container">
 
     <header><h2>Resolutions DASHBOARD</h2></header>
+    <div id="chart_div"></div>
 
     <div class="card">
         <div class="card-body text-center">

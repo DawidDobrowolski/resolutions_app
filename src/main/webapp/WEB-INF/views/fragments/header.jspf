@@ -28,7 +28,7 @@
                 <c:choose>
                     <c:when test="${!empty email}">
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="/resolution/dashboard">Resolution DASHBOARD</a>
+                            <a class="nav-link" href="/resolution/dashboard">Resolution DASHBOARD</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/activity/dashboard">Activities DASHBOARD</a>

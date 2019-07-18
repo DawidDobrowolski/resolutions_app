@@ -1,5 +1,6 @@
 package pl.resolutions.controller;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +11,12 @@ import pl.resolutions.entity.UserResolution;
 import pl.resolutions.repository.ResolutionRepository;
 import pl.resolutions.repository.UserRepository;
 import pl.resolutions.repository.UserResolutionRepository;
+import pl.resolutions.support.ResolutionDashboardChart;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -46,9 +49,22 @@ public class ResolutionController {
 
     @GetMapping("/dashboard")
     public String dashboardPage(Model model, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
-//        model.addAttribute("userResolutions", userResolutions);
+        HttpSession session = request.getSession();
+        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
+        List<ResolutionDashboardChart> dashboardCharts = new ArrayList<>();
+        for (UserResolution userResolution : userResolutions){
+            ResolutionDashboardChart resolutionDashboardChart = new ResolutionDashboardChart();
+            resolutionDashboardChart.setName(userResolution.getName());
+            resolutionDashboardChart.setDone(userResolution.getLastActivitiesUnits());
+            if(userResolution.getWeeklyPlan()>userResolution.getLastActivitiesUnits()){
+                resolutionDashboardChart.setToGo(userResolution.getWeeklyPlan()-userResolution.getLastActivitiesUnits());
+            }else{
+                resolutionDashboardChart.setToGo(0);
+            }
+            dashboardCharts.add(resolutionDashboardChart);
+        }
+        Gson gson = new Gson();
+        model.addAttribute("dashboardCharts",gson.toJson(dashboardCharts));
         return "/resolution/dashboard";
     }
 

@@ -1,4 +1,4 @@
-package pl.resolutions.model;
+package pl.resolutions.support;
 
 import pl.resolutions.entity.User;
 

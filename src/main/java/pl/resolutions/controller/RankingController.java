@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.resolutions.entity.Resolution;
 import pl.resolutions.entity.User;
 import pl.resolutions.entity.UserResolution;
-import pl.resolutions.model.UserResolutionRanking;
+import pl.resolutions.support.UserResolutionRanking;
 import pl.resolutions.repository.ActivityRepository;
 import pl.resolutions.repository.ResolutionRepository;
 import pl.resolutions.repository.UserRepository;

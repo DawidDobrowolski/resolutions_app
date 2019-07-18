@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.resolutions.entity.Activity;
 import pl.resolutions.entity.UserResolution;
-import pl.resolutions.model.UserResolutionReport;
+import pl.resolutions.support.UserResolutionReport;
 import pl.resolutions.repository.ActivityRepository;
 import pl.resolutions.repository.UserResolutionRepository;
 
