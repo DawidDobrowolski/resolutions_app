@@ -110,56 +110,83 @@
                         <td class="align-middle">${userResolution.description}</td>
                     </tr>
                 </table>
-                <header class="sub-table"><h2>
-                    Resolution activities <i class="fas fa-flag-checkered fa-2x"></i>
-                </h2></header>
+            </div>
+            <header class="sub-table-second "><h3>
 
+                Resolution activities <i class="fas fa-flag-checkered fa-2x"></i>
+                <a href="/activity/add" class="btn btn-add float-sm-right" style="margin-top: 20px">Add new activity</a>
+            </h3></header>
+            <div table-responsive>
+                <table border="1" class="table table-borderless">
+                    <thead class="text-center table-success">
+                    <tr class="text-center">
+                        <th>Date</th>
+                        <th>Units of activity</th>
+                        <th style="width:35%">Note</th>
+                        <th style="width:25%">Action</th>
+                    </tr>
+                    </thead>
+                    <c:forEach items="${userResolution.activities}" var="activity">
+                        <tr class="text-center">
+                            <td class="align-middle">${activity.date}</td>
+                            <td class="align-middle">${activity.unitsOfActivity} ${userResolution.resolution.unit}</td>
+                            <td class="align-middle">${activity.note}</td>
+                            <td class="align-middle">
+                                <a href="/activity/details/${activity.id}" class="btn btn-secondary btn-sm">Details</a>
+                                <a href="/activity/edit/${activity.id}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="/activity/delete/${activity.id}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+
+                </table>
             </div>
         </div>
-
-
-        <h3>Name: </h3>${userResolution.name}
-        <h3>Resolution type: </h3>${userResolution.resolution.name}
-        <h3>Start date: </h3>${userResolution.startDate}
-        <c:if test="${!userResolution.active}">
-            <h3>End date: </h3>${userResolution.endDate}
-        </c:if>
-        <h3>Weekly plan: </h3>${userResolution.weeklyPlan}
-        <h3>Activity for last 7 days: </h3>${userResolution.lastActivitiesUnits}
-        <h3>Resolution unit: </h3>${userResolution.resolution.unit}
-        <h3>Status: </h3>${userResolution.active}
-        <h3>E-mail reminder: </h3>${userResolution.emailReminder}
-        <h3>Description: </h3>${userResolution.description}
-        <br>
-        <h3>Activities: </h3>
-
-        <table border="1">
-            <tr>
-                <th>Date</th>
-                <th>Units of activity</th>
-                <th>Note</th>
-                <th>Action</th>
-            </tr>
-            <c:forEach items="${userResolution.activities}" var="activity">
-                <tr>
-                    <td>${activity.date}</td>
-                    <td>${activity.unitsOfActivity}</td>
-                    <td>${activity.note}</td>
-                    <td>
-                        <a href="/activity/details/${activity.id}">Details</a>
-                        <a href="/activity/edit/${activity.id}">Edit</a>
-                        <a href="/activity/delete/${activity.id}">Delete</a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        <c:if test="${userResolution.active}">
-            <a href="/activity/add/${userResolution.id}">Add new activity</a>
-        </c:if>
-        <br><br>
-
     </div>
-    <%@include file="../fragments/footer.jspf" %>
+
+    <h3>Name: </h3>${userResolution.name}
+    <h3>Resolution type: </h3>${userResolution.resolution.name}
+    <h3>Start date: </h3>${userResolution.startDate}
+    <c:if test="${!userResolution.active}">
+        <h3>End date: </h3>${userResolution.endDate}
+    </c:if>
+    <h3>Weekly plan: </h3>${userResolution.weeklyPlan}
+    <h3>Activity for last 7 days: </h3>${userResolution.lastActivitiesUnits}
+    <h3>Resolution unit: </h3>${userResolution.resolution.unit}
+    <h3>Status: </h3>${userResolution.active}
+    <h3>E-mail reminder: </h3>${userResolution.emailReminder}
+    <h3>Description: </h3>${userResolution.description}
+    <br>
+    <h3>Activities: </h3>
+
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Units of activity</th>
+            <th>Note</th>
+            <th>Action</th>
+        </tr>
+        <c:forEach items="${userResolution.activities}" var="activity">
+            <tr>
+                <td>${activity.date}</td>
+                <td>${activity.unitsOfActivity}</td>
+                <td>${activity.note}</td>
+                <td>
+                    <a href="/activity/details/${activity.id}">Details</a>
+                    <a href="/activity/edit/${activity.id}">Edit</a>
+                    <a href="/activity/delete/${activity.id}">Delete</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+    <c:if test="${userResolution.active}">
+        <a href="/activity/add/${userResolution.id}">Add new activity</a>
+    </c:if>
+    <br><br>
+
+</div>
+<%@include file="../fragments/footer.jspf" %>
 
 
 </body>

@@ -74,8 +74,7 @@
                                 </c:if>
                                 <a href="/resolution/details/${userResolution.id}" class="btn btn-secondary btn-sm">Details</a>
                                 <a href="/resolution/edit/${userResolution.id}" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/resolution/delete/${userResolution.id}"
-                                   class="btn btn-danger btn-sm">Delete</a>
+                                <a href="/resolution/delete/${userResolution.id}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
