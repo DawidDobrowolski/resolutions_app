@@ -16,10 +16,11 @@
     <script src="<c:url value="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>"></script>
     <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">
+    <script type="text/javascript" src="<c:url value="/resources/js/resolutionAdd.js" />"></script>
 </head>
 <body>
 <%@include file="../fragments/header.jspf" %>
-
+<input type="hidden" id="unitsNames" value='${unitsNames}'/>
 <form:form method="post" action="/resolution/add" modelAttribute="userResolution">
     <div class="container">
         <header><h2>Resolution form</h2></header>
@@ -28,7 +29,7 @@
                 <div class="form-group">
                     <form:hidden path="id" />
                     <label>Resolution:</label>
-                    <form:select path="resolution" items="${resolutions}" itemLabel="name" itemValue="id" class="form-control"/>
+                    <form:select id="selectResolution" path="resolution" items="${resolutions}" itemLabel="name" itemValue="id" class="form-control"/>
                     <form:errors path="resolution" element="div class='alert alert-danger'"/><br>
                 </div>
                 <div class="form-group">
@@ -48,8 +49,13 @@
                 </div>
                 <div class="form-group">
                     <label>Weekly plan:</label>
+                    <div class="input-group">
                     <form:input type="number" path="weeklyPlan" class="form-control"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="unitInput"></span>
+                    </div>
                     <form:errors path="weeklyPlan" element="div class='alert alert-danger'"/><br>
+                    </div>
                 </div>
                 <div class="form-check">
                     <form:checkbox path="emailReminder" class="form-check-input"/>

@@ -99,7 +99,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you shure you want to delete resolution <strong><span id="resolutionName"></span></strong>?</p>
+                <p>Are you sure you want to delete resolution <strong><span id="resolutionName"></span></strong>?</p>
             </div>
             <div class="modal-footer">
                 <button id="deleteId" type="button" class="btn btn-primary btn-submit">Confirm</button>

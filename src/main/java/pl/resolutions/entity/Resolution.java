@@ -25,7 +25,6 @@ public class Resolution {
     private Integer unitMin;
 
 
-
     @OneToMany(mappedBy = "resolution")
     private List<UserResolution> userResolutions = new ArrayList<>();
 

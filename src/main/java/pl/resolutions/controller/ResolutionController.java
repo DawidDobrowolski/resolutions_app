@@ -12,6 +12,7 @@ import pl.resolutions.repository.ResolutionRepository;
 import pl.resolutions.repository.UserRepository;
 import pl.resolutions.repository.UserResolutionRepository;
 import pl.resolutions.support.ResolutionDashboardChart;
+import pl.resolutions.support.UnitsName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,7 +30,7 @@ public class ResolutionController {
 
 
     @Autowired
-    public ResolutionController(UserResolutionRepository userResolutionRepository, ResolutionRepository resolutionRepository,UserRepository userRepository) {
+    public ResolutionController(UserResolutionRepository userResolutionRepository, ResolutionRepository resolutionRepository, UserRepository userRepository) {
         this.userResolutionRepository = userResolutionRepository;
         this.resolutionRepository = resolutionRepository;
         this.userRepository = userRepository;
@@ -40,10 +41,11 @@ public class ResolutionController {
         return resolutionRepository.findAll();
     }
 
+
     @ModelAttribute("userResolutions")
     public List<UserResolution> getAllResolutions(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return userResolutionRepository.getByUserEmail((String)session.getAttribute("email"));
+        return userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
     }
 
 
@@ -52,19 +54,19 @@ public class ResolutionController {
         HttpSession session = request.getSession();
         List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
         List<ResolutionDashboardChart> dashboardCharts = new ArrayList<>();
-        for (UserResolution userResolution : userResolutions){
+        for (UserResolution userResolution : userResolutions) {
             ResolutionDashboardChart resolutionDashboardChart = new ResolutionDashboardChart();
             resolutionDashboardChart.setName(userResolution.getName());
             resolutionDashboardChart.setDone(userResolution.getLastActivitiesUnits());
-            if(userResolution.getWeeklyPlan()>userResolution.getLastActivitiesUnits()){
-                resolutionDashboardChart.setToGo(userResolution.getWeeklyPlan()-userResolution.getLastActivitiesUnits());
-            }else{
+            if (userResolution.getWeeklyPlan() > userResolution.getLastActivitiesUnits()) {
+                resolutionDashboardChart.setToGo(userResolution.getWeeklyPlan() - userResolution.getLastActivitiesUnits());
+            } else {
                 resolutionDashboardChart.setToGo(0);
             }
             dashboardCharts.add(resolutionDashboardChart);
         }
         Gson gson = new Gson();
-        model.addAttribute("dashboardCharts",gson.toJson(dashboardCharts));
+        model.addAttribute("dashboardCharts", gson.toJson(dashboardCharts));
         return "/resolution/dashboard";
     }
 
@@ -77,19 +79,29 @@ public class ResolutionController {
     }
 
     @PostMapping("/add")
-    public String saveForm(@Valid UserResolution userResolution, BindingResult result,HttpServletRequest request) {
+    public String saveForm(@Valid UserResolution userResolution, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "resolution/add";
         }
         HttpSession session = request.getSession();
-        userResolution.setUser(userRepository.getByEmail((String)session.getAttribute("email")));
+        userResolution.setUser(userRepository.getByEmail((String) session.getAttribute("email")));
         userResolutionRepository.save(userResolution);
         return "redirect:/resolution/dashboard";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(Model model,@PathVariable Long id) {
+    public String edit(Model model, @PathVariable Long id) {
         UserResolution userResolution = userResolutionRepository.findOne(id);
+        List<Resolution> resolutionList = getAllResolutions();
+        List<UnitsName> unitsNames = new ArrayList<>();
+        for(Resolution resolution:resolutionList){
+            UnitsName unitsName = new UnitsName();
+            unitsName.setId(resolution.getId());
+            unitsName.setName(resolution.getUnit());
+            unitsNames.add(unitsName);
+        }
+        Gson gson = new Gson();
+        model.addAttribute("unitsNames", gson.toJson(unitsNames));
         model.addAttribute("userResolution", userResolution);
         return "resolution/add";
     }
@@ -102,9 +114,9 @@ public class ResolutionController {
 
 
     @GetMapping("/details/{id}")
-    public String details(Model model,@PathVariable Long id) {
-        UserResolution userResolution =  userResolutionRepository.findOne(id);
-        model.addAttribute("userResolution",userResolution);
+    public String details(Model model, @PathVariable Long id) {
+        UserResolution userResolution = userResolutionRepository.findOne(id);
+        model.addAttribute("userResolution", userResolution);
         return "resolution/details";
     }
 
