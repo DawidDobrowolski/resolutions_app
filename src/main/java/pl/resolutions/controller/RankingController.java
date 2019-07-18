@@ -1,6 +1,7 @@
 package pl.resolutions.controller;
 
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/ranking")
@@ -59,11 +61,16 @@ public class RankingController {
             for (UserResolution userResolution : userResolutions) {
                 sumUnits += userResolution.getForDaysActivitiesUnits(30);
             }
-            userResolutionRanking.setUser(user);
+            userResolutionRanking.setUser(user.getName());
             userResolutionRanking.setSumUnits(sumUnits);
+            userResolutionRanking.setUnitName(resolutionRepository.findOne(id).getUnit());
             userResolutionRankings.add(userResolutionRanking);
             sumUnits=0;
         }
+
+        userResolutionRankings = userResolutionRankings.stream().sorted((u1,u2)-> u2.getSumUnits().compareTo(u1.getSumUnits())).collect(Collectors.toList());
+        Gson gson = new Gson();
+        model.addAttribute("dashboardCharts", gson.toJson(userResolutionRankings));
         model.addAttribute("userResolutionRankings",userResolutionRankings);
         model.addAttribute("resolution",resolutionRepository.findOne(id));
         return "/ranking/ranking";

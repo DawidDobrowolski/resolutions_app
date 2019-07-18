@@ -9,9 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.resolutions.entity.Activity;
 import pl.resolutions.entity.Resolution;
+import pl.resolutions.entity.User;
 import pl.resolutions.entity.UserResolution;
 import pl.resolutions.repository.ActivityRepository;
 import pl.resolutions.repository.ResolutionRepository;
+import pl.resolutions.repository.UserRepository;
 import pl.resolutions.repository.UserResolutionRepository;
 import pl.resolutions.support.ActivityDashboardChart;
 import pl.resolutions.support.UnitsName;
@@ -29,13 +31,15 @@ public class ActivityController {
     private ActivityRepository activityRepository;
     private UserResolutionRepository userResolutionRepository;
     private ResolutionRepository resolutionRepository;
+    private UserRepository userRepository;
 
 
     @Autowired
-    public ActivityController(ActivityRepository activityRepository, UserResolutionRepository userResolutionRepository,ResolutionRepository resolutionRepository) {
+    public ActivityController(ActivityRepository activityRepository, UserResolutionRepository userResolutionRepository,ResolutionRepository resolutionRepository,UserRepository userRepository) {
         this.activityRepository = activityRepository;
         this.userResolutionRepository = userResolutionRepository;
         this.resolutionRepository = resolutionRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -59,13 +63,14 @@ public class ActivityController {
     @GetMapping("/dashboard")
     public String dashboardPage(Model model,HttpServletRequest request) {
         HttpSession session = request.getSession();
-        List<Resolution> resolutionList = resolutionRepository.customDistinctUserResolutionsByUserEmail((String)session.getAttribute("email"));
+        User user = userRepository.getByEmail((String)session.getAttribute("email"));
+        List<Resolution> resolutionList = resolutionRepository.customDistinctUserResolutionsByUserEmail(user.getEmail());
         List<ActivityDashboardChart> activityDashboardChartArrayList = new ArrayList<>();
 
         for(Resolution resolution : resolutionList){
             ActivityDashboardChart activityDashboardChart = new ActivityDashboardChart();
             activityDashboardChart.setResolution(resolution.getName());
-            activityDashboardChart.setNumber(activityRepository.countActivitiesByUserResolutionResolution(resolution));
+            activityDashboardChart.setNumber(activityRepository.countActivitiesByUserResolutionResolutionAndUserResolutionUser(resolution,user));
             activityDashboardChartArrayList.add(activityDashboardChart);
         }
 

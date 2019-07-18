@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.resolutions.entity.Activity;
+import pl.resolutions.entity.User;
 import pl.resolutions.entity.UserResolution;
+import pl.resolutions.repository.UserRepository;
 import pl.resolutions.support.UserResolutionReport;
 import pl.resolutions.repository.ActivityRepository;
 import pl.resolutions.repository.UserResolutionRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,11 +33,13 @@ public class ReportController {
 
     private UserResolutionRepository userResolutionRepository;
     private ActivityRepository activityRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ReportController(UserResolutionRepository userResolutionRepository, ActivityRepository activityRepository) {
+    public ReportController(UserResolutionRepository userResolutionRepository, ActivityRepository activityRepository,UserRepository userRepository) {
         this.userResolutionRepository = userResolutionRepository;
         this.activityRepository = activityRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/generate")
@@ -42,7 +48,7 @@ public class ReportController {
     }
 
     @PostMapping("/generate")
-    public String generateReportDates(Model model, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+    public String generateReportDates(Model model, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date from, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date to, HttpServletRequest request) {
         if (to == null || from == null) {
             model.addAttribute("wrongDate", true);
             return "report/generate";
@@ -55,7 +61,9 @@ public class ReportController {
         model.addAttribute("from", from);
         model.addAttribute("to", to);
 
-        List<UserResolution> userResolutions = userResolutionRepository.getByStartDateBeforeAndEndDateAfterOrEndDateIsNull(to, from);
+        HttpSession session = request.getSession();
+
+        List<UserResolution> userResolutions = userResolutionRepository.customUsetFromTo((String)session.getAttribute("email"),to, from);
         List<UserResolutionReport> userResolutionReports = new ArrayList<>();
         int unitsSum = 0;
         double realizationSum = 0;

@@ -4,14 +4,15 @@ import pl.resolutions.entity.User;
 
 public class UserResolutionRanking {
 
-    private User user;
+    private String user;
     private Integer sumUnits;
+    private String unitName;
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -21,5 +22,13 @@ public class UserResolutionRanking {
 
     public void setSumUnits(Integer sumUnits) {
         this.sumUnits = sumUnits;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 }
