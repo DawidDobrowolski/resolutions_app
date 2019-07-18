@@ -24,7 +24,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <div table-responsive>
-                <table border="3" class="table">
+                <table border="3" class="table font-weight-bold">
                     <tr class="text-center">
                         <td class="align-middle table-dark" style="width: 12%">
                             <i class="fas fa-audio-description fa-2x"></i>
@@ -112,7 +112,6 @@
                 </table>
             </div>
             <header class="sub-table-second "><h3>
-
                 Resolution activities <i class="fas fa-flag-checkered fa-2x"></i>
                 <a href="/activity/add" class="btn btn-add float-sm-right" style="margin-top: 20px">Add new activity</a>
             </h3></header>

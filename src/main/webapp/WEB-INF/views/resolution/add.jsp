@@ -54,8 +54,8 @@
                     <div class="input-group-append">
                         <span class="input-group-text" id="unitInput"></span>
                     </div>
-                    <form:errors path="weeklyPlan" element="div class='alert alert-danger'"/><br>
                     </div>
+                    <form:errors path="weeklyPlan" element="div class='alert alert-danger'"/><br>
                 </div>
                 <div class="form-check">
                     <form:checkbox path="emailReminder" class="form-check-input"/>

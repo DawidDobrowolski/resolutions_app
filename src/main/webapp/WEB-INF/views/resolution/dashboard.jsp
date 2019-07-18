@@ -25,6 +25,7 @@
 <div class="container">
 
     <header><h2>Resolutions DASHBOARD</h2></header>
+    <div class="chart-title">Fulfilment of resolutions during last 7 days</div>
     <div id="chart_div"></div>
 
     <div class="card">
@@ -73,7 +74,6 @@
                                 </c:if>
                                 <a href="/resolution/details/${userResolution.id}" class="btn btn-secondary btn-sm">Details</a>
                                 <a href="/resolution/edit/${userResolution.id}" class="btn btn-warning btn-sm">Edit</a>
-<%--                                <a href="/resolution/delete/${userResolution.id}" class="btn btn-danger btn-sm">Delete</a>--%>
                                 <a href="/resolution/delete/${userResolution.id}" class="btn btn-danger btn-sm"
                                    data-toggle="modal"
                                    data-target="#deleteModal"

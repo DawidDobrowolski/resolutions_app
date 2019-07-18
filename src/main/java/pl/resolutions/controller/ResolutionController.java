@@ -71,16 +71,36 @@ public class ResolutionController {
     }
 
     @GetMapping("/add")
-    public String addResolution(Model model, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        List<UserResolution> userResolutions = userResolutionRepository.getByUserEmail((String) session.getAttribute("email"));
+    public String addResolution(Model model) {
+        List<Resolution> resolutionList = getAllResolutions();
+        List<UnitsName> unitsNames = new ArrayList<>();
+        for(Resolution resolution:resolutionList){
+            UnitsName unitsName = new UnitsName();
+            unitsName.setId(resolution.getId());
+            unitsName.setName(resolution.getUnit());
+            unitsNames.add(unitsName);
+        }
+        Gson gson = new Gson();
+        model.addAttribute("unitsNames", gson.toJson(unitsNames));
         model.addAttribute("userResolution", new UserResolution());
         return "/resolution/add";
     }
 
     @PostMapping("/add")
-    public String saveForm(@Valid UserResolution userResolution, BindingResult result, HttpServletRequest request) {
+    public String saveForm(Model model,@Valid UserResolution userResolution, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
+
+            List<Resolution> resolutionList = getAllResolutions();
+            List<UnitsName> unitsNames = new ArrayList<>();
+            for(Resolution resolution:resolutionList){
+                UnitsName unitsName = new UnitsName();
+                unitsName.setId(resolution.getId());
+                unitsName.setName(resolution.getUnit());
+                unitsNames.add(unitsName);
+            }
+            Gson gson = new Gson();
+            model.addAttribute("unitsNames", gson.toJson(unitsNames));
+
             return "resolution/add";
         }
         HttpSession session = request.getSession();

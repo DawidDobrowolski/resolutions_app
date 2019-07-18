@@ -86,3 +86,11 @@ header {
     margin-left: -1.25rem;
 }
 
+.chart-title{
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+
+}
+

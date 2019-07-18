@@ -1,15 +1,20 @@
 package pl.resolutions.controller;
 
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.resolutions.entity.Activity;
+import pl.resolutions.entity.Resolution;
 import pl.resolutions.entity.UserResolution;
 import pl.resolutions.repository.ActivityRepository;
+import pl.resolutions.repository.ResolutionRepository;
 import pl.resolutions.repository.UserResolutionRepository;
+import pl.resolutions.support.ActivityDashboardChart;
+import pl.resolutions.support.UnitsName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,11 +28,14 @@ public class ActivityController {
 
     private ActivityRepository activityRepository;
     private UserResolutionRepository userResolutionRepository;
+    private ResolutionRepository resolutionRepository;
+
 
     @Autowired
-    public ActivityController(ActivityRepository activityRepository, UserResolutionRepository userResolutionRepository) {
+    public ActivityController(ActivityRepository activityRepository, UserResolutionRepository userResolutionRepository,ResolutionRepository resolutionRepository) {
         this.activityRepository = activityRepository;
         this.userResolutionRepository = userResolutionRepository;
+        this.resolutionRepository = resolutionRepository;
     }
 
 
@@ -49,39 +57,100 @@ public class ActivityController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage() {
+    public String dashboardPage(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        List<Resolution> resolutionList = resolutionRepository.customDistinctUserResolutionsByUserEmail((String)session.getAttribute("email"));
+        List<ActivityDashboardChart> activityDashboardChartArrayList = new ArrayList<>();
+
+        for(Resolution resolution : resolutionList){
+            ActivityDashboardChart activityDashboardChart = new ActivityDashboardChart();
+            activityDashboardChart.setResolution(resolution.getName());
+            activityDashboardChart.setNumber(activityRepository.countActivitiesByUserResolutionResolution(resolution));
+            activityDashboardChartArrayList.add(activityDashboardChart);
+        }
+
+        Gson gson = new Gson();
+        model.addAttribute("dashboardCharts", gson.toJson(activityDashboardChartArrayList));
         return "/activity/dashboard";
     }
 
 
     @GetMapping("/add")
-    public String addActivity(Model model) {
+    public String addActivity(Model model,HttpServletRequest request) {
+        List<UserResolution> userResolutionList = getAllResolutions(request);
+        List<UnitsName> unitsNames = new ArrayList<>();
+        for(UserResolution userResolution:userResolutionList){
+            UnitsName unitsName = new UnitsName();
+            unitsName.setId(userResolution.getId());
+            unitsName.setName(userResolution.getResolution().getUnit());
+            unitsNames.add(unitsName);
+        }
+        Gson gson = new Gson();
+        model.addAttribute("unitsNames", gson.toJson(unitsNames));
+
+
         model.addAttribute("activity", new Activity());
         return "/activity/add";
     }
 
     @GetMapping("/add/{id}")
-    public String addActivityToUserResolution(Model model, @PathVariable Long id) {
+    public String addActivityToUserResolution(Model model, @PathVariable Long id,HttpServletRequest request) {
         UserResolution userResolution = userResolutionRepository.findOne(id);
         Activity activity = new Activity();
         activity.setUserResolution(userResolution);
+
+        List<UserResolution> userResolutionList = getAllResolutions(request);
+        List<UnitsName> unitsNames = new ArrayList<>();
+        for(UserResolution userResolution2:userResolutionList){
+            UnitsName unitsName = new UnitsName();
+            unitsName.setId(userResolution2.getId());
+            unitsName.setName(userResolution2.getResolution().getUnit());
+            unitsNames.add(unitsName);
+        }
+        Gson gson = new Gson();
+        model.addAttribute("unitsNames", gson.toJson(unitsNames));;
         model.addAttribute("activity", activity);
         return "/activity/add";
     }
 
 
     @PostMapping("/add")
-    public String saveForm(@Valid Activity activity, BindingResult result) {
+    public String saveForm(Model model,@Valid Activity activity, BindingResult result,HttpServletRequest request) {
         if (result.hasErrors()) {
+
+            List<UserResolution> userResolutionList = getAllResolutions(request);
+            List<UnitsName> unitsNames = new ArrayList<>();
+            for(UserResolution userResolution:userResolutionList){
+                UnitsName unitsName = new UnitsName();
+                unitsName.setId(userResolution.getId());
+                unitsName.setName(userResolution.getResolution().getUnit());
+                unitsNames.add(unitsName);
+            }
+            Gson gson = new Gson();
+            model.addAttribute("unitsNames", gson.toJson(unitsNames));
+
+
+
             return "activity/add";
         }
         activityRepository.save(activity);
-        return "redirect:/resolution/dashboard";
+        return "redirect:/activity/dashboard";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(Model model,@PathVariable Long id) {
+    public String edit(Model model,@PathVariable Long id,HttpServletRequest request) {
         Activity activity = activityRepository.findOne(id);
+
+        List<UserResolution> userResolutionList = getAllResolutions(request);
+        List<UnitsName> unitsNames = new ArrayList<>();
+        for(UserResolution userResolution:userResolutionList){
+            UnitsName unitsName = new UnitsName();
+            unitsName.setId(userResolution.getId());
+            unitsName.setName(userResolution.getResolution().getUnit());
+            unitsNames.add(unitsName);
+        }
+        Gson gson = new Gson();
+        model.addAttribute("unitsNames", gson.toJson(unitsNames));
         model.addAttribute("activity", activity);
         return "activity/add";
     }
@@ -89,7 +158,7 @@ public class ActivityController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         activityRepository.delete(id);
-        return "redirect:/resolution/dashboard";
+        return "redirect:/activity/dashboard";
     }
 
     @GetMapping("/details/{id}")
