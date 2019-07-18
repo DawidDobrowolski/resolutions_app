@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">
     <link href="/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/resolutionDashboard.js" />"></script>
 </head>
 <body>
@@ -74,7 +73,13 @@
                                 </c:if>
                                 <a href="/resolution/details/${userResolution.id}" class="btn btn-secondary btn-sm">Details</a>
                                 <a href="/resolution/edit/${userResolution.id}" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/resolution/delete/${userResolution.id}" class="btn btn-danger btn-sm">Delete</a>
+<%--                                <a href="/resolution/delete/${userResolution.id}" class="btn btn-danger btn-sm">Delete</a>--%>
+                                <a href="/resolution/delete/${userResolution.id}" class="btn btn-danger btn-sm"
+                                   data-toggle="modal"
+                                   data-target="#deleteModal"
+                                   data-resolution-id="${userResolution.id}"
+                                   data-resolution-name="${userResolution.name}"
+                                   title="Delete resolution">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -83,6 +88,27 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you shure you want to delete resolution <strong><span id="resolutionName"></span></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="deleteId" type="button" class="btn btn-primary btn-submit">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <br>
 <%@include file="../fragments/footer.jspf" %>
 </body>
