@@ -89,6 +89,12 @@ $(document).ready(function () {
             animation:{duration: 500, easing: 'inAndOut' },
         };
 
+        var formatter = new google.visualization.NumberFormat(
+            {suffix: '%',pattern:'#'}
+        );
+
+        formatter.format(data,1);
+
         var chart = new google.visualization.Gauge(document.getElementById('chart_div2'));
 
 
