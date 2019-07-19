@@ -17,6 +17,11 @@ public class HomeController {
         return "tips";
     }
 
+    @GetMapping("/top")
+    public String topPage(){
+        return "top";
+    }
+
 
 
 }

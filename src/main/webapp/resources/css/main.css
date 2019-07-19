@@ -94,3 +94,12 @@ header {
 
 }
 
+.table-top{
+    background-color: white;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 10px;
+
+}
+
