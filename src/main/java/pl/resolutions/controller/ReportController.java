@@ -73,17 +73,17 @@ public class ReportController {
             userResolutionReport.setName(userResolution.getName());
             userResolutionReport.setResolutionType(userResolution.getResolution().getName());
             userResolutionReport.setResolutionUnit(userResolution.getResolution().getUnit());
-            if (userResolution.isActive() && from.after(userResolution.getStartDate())) {
+            if (userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) ){
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
-            } else if(userResolution.isActive() && from.before(userResolution.getStartDate())){
+            } else if(userResolution.isActive() && (from.before(userResolution.getStartDate())|| from.equals(userResolution.getStartDate()))){
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
-            } else if(!userResolution.isActive() && from.after(userResolution.getStartDate()) && to.before(userResolution.getEndDate()) ) {
+            } else if(!userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.before(userResolution.getEndDate()) || to.equals(userResolution.getEndDate())) ) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
-            } else if (!userResolution.isActive() && from.before(userResolution.getStartDate()) && to.after(userResolution.getEndDate())) {
+            } else if (!userResolution.isActive() && (from.before(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.after(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(userResolution.getEndDate().getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
-            }else if (!userResolution.isActive() && from.before(userResolution.getStartDate()) && to.before(userResolution.getEndDate())) {
+            }else if (!userResolution.isActive() && (from.before(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.before(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
-            }else if (!userResolution.isActive() && from.after(userResolution.getStartDate()) && to.after(userResolution.getEndDate())) {
+            }else if (!userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.after(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(userResolution.getEndDate().getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
             }
             userResolutionReport.setPlanForSetDays(Math.floor(userResolutionReport.getNumberOfDays() * userResolution.getWeeklyPlan() * 100 / 7.0) / 100);

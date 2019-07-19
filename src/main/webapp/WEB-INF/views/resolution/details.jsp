@@ -113,7 +113,7 @@
             </div>
             <header class="sub-table-second "><h3>
                 Resolution activities <i class="fas fa-flag-checkered fa-2x"></i>
-                <a href="/activity/add" class="btn btn-add float-sm-right" style="margin-top: 20px">Add new activity</a>
+                <a href="/activity/add/${userResolution.id}" class="btn btn-add float-sm-right" style="margin-top: 20px">Add new activity</a>
             </h3></header>
             <div table-responsive>
                 <table border="1" class="table table-borderless">

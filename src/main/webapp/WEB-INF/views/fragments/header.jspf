@@ -20,10 +20,10 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/books/list">Top resolutions</a>
+                    <a class="nav-link" href="/top">Top resolutions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/authors/list">Tips</a>
+                    <a class="nav-link" href="/tips">Tips</a>
                 </li>
                 <c:choose>
                     <c:when test="${!empty email}">

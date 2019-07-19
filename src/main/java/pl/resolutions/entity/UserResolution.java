@@ -154,7 +154,7 @@ public class UserResolution {
 
     public List<Activity> getLastActivities() {
         Date now = new Date();
-        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMicros(7));
+        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(7));
         return activities.stream()
                 .filter(a -> a.getDate().after(sevenDaysAgo))
                 .collect(Collectors.toList());
@@ -162,7 +162,7 @@ public class UserResolution {
 
     public int getLastActivitiesUnits() {
         Date now = new Date();
-        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMicros(7));
+        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(7));
         return activities.stream()
                 .filter(a -> a.getDate().after(sevenDaysAgo))
                 .mapToInt(a -> a.getUnitsOfActivity())
@@ -171,7 +171,7 @@ public class UserResolution {
 
     public int getForDaysActivitiesUnits(int days) {
         Date now = new Date();
-        Date setDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMicros(days));
+        Date setDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(days));
         return activities.stream()
                 .filter(a -> a.getDate().after(setDaysAgo))
                 .mapToInt(a -> a.getUnitsOfActivity())

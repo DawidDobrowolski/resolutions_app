@@ -43,7 +43,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Type of resolution</th>
-                        <th>Start date</th>
+                        <th style="width:12%">Start date</th>
                         <th>Weekly plan</th>
                         <th>Activity for last 7 days</th>
                         <th>Status</th>

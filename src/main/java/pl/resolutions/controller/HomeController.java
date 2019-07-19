@@ -12,6 +12,11 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/tips")
+    public String tipsPage(){
+        return "tips";
+    }
+
 
 
 }
