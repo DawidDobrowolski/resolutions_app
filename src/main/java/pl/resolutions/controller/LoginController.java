@@ -52,47 +52,46 @@ public class LoginController {
             result.addError(new FieldError("user", "email", "User already exist"));
             return "login/register";
         }
-
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
         return "redirect:login";
     }
 
-// normalnie trzeba by uzyc grup walidacyjnych
+    // normalnie trzeba by uzyc grup walidacyjnych
     @GetMapping("/login")
     public String displayLoginForm() {
         return "login/login";
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model,HttpServletRequest request){
+    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request) {
         boolean success = true;
-        if(email == null || email.trim().equals("") || password == null || password.trim().equals("")){
+        if (email == null || email.trim().equals("") || password == null || password.trim().equals("")) {
             success = false;
         }
         User existingUser = null;
-        if(success){
+        if (success) {
             existingUser = userRepository.getByEmail(email);
-            if(existingUser == null){
+            if (existingUser == null) {
                 success = false;
-            }else if(!existingUser.getPassword().equals(password)){
-                //BCrypt.checkpw(password, existingUser.getPassword())
+            } else if (!BCrypt.checkpw(password, existingUser.getPassword())) {
                 success = false;
             }
         }
-        if(!success){
-            model.addAttribute("success",false);
+        if (!success) {
+            model.addAttribute("success", false);
             return "login/login";
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("email",email);
-        session.setAttribute("firstName",existingUser.getFirstName());
+        session.setAttribute("email", email);
+        session.setAttribute("firstName", existingUser.getFirstName());
         return "redirect:/resolution/dashboard";
     }
 
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }

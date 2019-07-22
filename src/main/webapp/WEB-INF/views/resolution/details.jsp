@@ -15,6 +15,7 @@
     <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">
     <link href="/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+    <script type="text/javascript" src="<c:url value="/resources/js/details.js" />"></script></head>
 </head>
 <body>
 <%@include file="../fragments/header.jspf" %>
@@ -133,58 +134,40 @@
                             <td class="align-middle">
                                 <a href="/activity/details/${activity.id}" class="btn btn-secondary btn-sm">Details</a>
                                 <a href="/activity/edit/${activity.id}" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="/activity/delete/${activity.id}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="/activity/delete/${activity.id}" class="btn btn-danger btn-sm"
+                                   data-toggle="modal"
+                                   data-target="#deleteModal"
+                                   data-activity-id="${activity.id}"
+                                   data-resolution-name="${activity.userResolution.name}"
+                                   title="Delete activity">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
-
-
                 </table>
             </div>
         </div>
     </div>
-
-<%--    <h3>Name: </h3>${userResolution.name}--%>
-<%--    <h3>Resolution type: </h3>${userResolution.resolution.name}--%>
-<%--    <h3>Start date: </h3>${userResolution.startDate}--%>
-<%--    <c:if test="${!userResolution.active}">--%>
-<%--        <h3>End date: </h3>${userResolution.endDate}--%>
-<%--    </c:if>--%>
-<%--    <h3>Weekly plan: </h3>${userResolution.weeklyPlan}--%>
-<%--    <h3>Activity for last 7 days: </h3>${userResolution.lastActivitiesUnits}--%>
-<%--    <h3>Resolution unit: </h3>${userResolution.resolution.unit}--%>
-<%--    <h3>Status: </h3>${userResolution.active}--%>
-<%--    <h3>E-mail reminder: </h3>${userResolution.emailReminder}--%>
-<%--    <h3>Description: </h3>${userResolution.description}--%>
-<%--    <br>--%>
-<%--    <h3>Activities: </h3>--%>
-
-<%--    <table border="1">--%>
-<%--        <tr>--%>
-<%--            <th>Date</th>--%>
-<%--            <th>Units of activity</th>--%>
-<%--            <th>Note</th>--%>
-<%--            <th>Action</th>--%>
-<%--        </tr>--%>
-<%--        <c:forEach items="${userResolution.activities}" var="activity">--%>
-<%--            <tr>--%>
-<%--                <td>${activity.date}</td>--%>
-<%--                <td>${activity.unitsOfActivity}</td>--%>
-<%--                <td>${activity.note}</td>--%>
-<%--                <td>--%>
-<%--                    <a href="/activity/details/${activity.id}">Details</a>--%>
-<%--                    <a href="/activity/edit/${activity.id}">Edit</a>--%>
-<%--                    <a href="/activity/delete/${activity.id}">Delete</a>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--        </c:forEach>--%>
-<%--    </table>--%>
-<%--    <c:if test="${userResolution.active}">--%>
-<%--        <a href="/activity/add/${userResolution.id}">Add new activity</a>--%>
-<%--    </c:if>--%>
-<%--    <br><br>--%>
-
-</div><br>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete activity for resolution <strong><span id="resolutionName"></span></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="deleteId" type="button" class="btn btn-primary btn-submit">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
 <%@include file="../fragments/footer.jspf" %>
 
 

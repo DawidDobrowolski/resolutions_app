@@ -88,46 +88,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-<%--<h2>DASHBOARD</h2>--%>
-<%--<h3>ACTIVITIES</h3>--%>
-<%--<table border="1">--%>
-<%--    <tr>--%>
-<%--        <th>Name</th>--%>
-<%--        <th>Resolution type</th>--%>
-<%--        <th>Date</th>--%>
-<%--        <th>Units of activity</th>--%>
-<%--        <th>Note</th>--%>
-<%--        <th>Action</th>--%>
-<%--    </tr>--%>
-<%--    <c:forEach items="${activities}" var="activity">--%>
-<%--        <tr>--%>
-<%--            <td>${activity.userResolution.name}</td>--%>
-<%--            <td>${activity.userResolution.resolution.name}</td>--%>
-<%--            <td>${activity.date}</td>--%>
-<%--            <td>${activity.unitsOfActivity}</td>--%>
-<%--            <td>${activity.note}</td>--%>
-<%--            <td>--%>
-<%--                <a href="/activity/details/${activity.id}">Details</a>--%>
-<%--                <a href="/activity/edit/${activity.id}">Edit</a>--%>
-<%--                <a href="/activity/delete/${activity.id}">Delete</a>--%>
-<%--            </td>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
-<%--</table>--%>
-<%--<a href="/activity/add">Add new activity</a><br>--%>
-<%--<a href="/resolution/add">Add new resolution</a>--%>
-<%--<br><br>--%>
-<%--<a href="/resolution/dashboard">Show resolution dashboard</a>--%>
 <br>
 <%@include file="../fragments/footer.jspf"%>
 

@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.resolutions.entity.Activity;
-import pl.resolutions.entity.User;
 import pl.resolutions.entity.UserResolution;
-import pl.resolutions.repository.UserRepository;
-import pl.resolutions.support.UserResolutionReport;
 import pl.resolutions.repository.ActivityRepository;
+import pl.resolutions.repository.UserRepository;
 import pl.resolutions.repository.UserResolutionRepository;
+import pl.resolutions.support.UserResolutionReport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,7 +35,7 @@ public class ReportController {
     private UserRepository userRepository;
 
     @Autowired
-    public ReportController(UserResolutionRepository userResolutionRepository, ActivityRepository activityRepository,UserRepository userRepository) {
+    public ReportController(UserResolutionRepository userResolutionRepository, ActivityRepository activityRepository, UserRepository userRepository) {
         this.userResolutionRepository = userResolutionRepository;
         this.activityRepository = activityRepository;
         this.userRepository = userRepository;
@@ -63,7 +62,7 @@ public class ReportController {
 
         HttpSession session = request.getSession();
 
-        List<UserResolution> userResolutions = userResolutionRepository.customUsetFromTo((String)session.getAttribute("email"),to, from);
+        List<UserResolution> userResolutions = userResolutionRepository.customUsetFromTo((String) session.getAttribute("email"), to, from);
         List<UserResolutionReport> userResolutionReports = new ArrayList<>();
         int unitsSum = 0;
         double realizationSum = 0;
@@ -73,17 +72,17 @@ public class ReportController {
             userResolutionReport.setName(userResolution.getName());
             userResolutionReport.setResolutionType(userResolution.getResolution().getName());
             userResolutionReport.setResolutionUnit(userResolution.getResolution().getUnit());
-            if (userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) ){
+            if (userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
-            } else if(userResolution.isActive() && (from.before(userResolution.getStartDate())|| from.equals(userResolution.getStartDate()))){
+            } else if (userResolution.isActive() && (from.before(userResolution.getStartDate()) || from.equals(userResolution.getStartDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
-            } else if(!userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.before(userResolution.getEndDate()) || to.equals(userResolution.getEndDate())) ) {
+            } else if (!userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.before(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
             } else if (!userResolution.isActive() && (from.before(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.after(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(userResolution.getEndDate().getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
-            }else if (!userResolution.isActive() && (from.before(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.before(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
+            } else if (!userResolution.isActive() && (from.before(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.before(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(to.getTime() - userResolution.getStartDate().getTime(), TimeUnit.MILLISECONDS) + 1);
-            }else if (!userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.after(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
+            } else if (!userResolution.isActive() && (from.after(userResolution.getStartDate()) || from.equals(userResolution.getStartDate())) && (to.after(userResolution.getEndDate()) || to.equals(userResolution.getEndDate()))) {
                 userResolutionReport.setNumberOfDays(TimeUnit.DAYS.convert(userResolution.getEndDate().getTime() - from.getTime(), TimeUnit.MILLISECONDS) + 1);
             }
             userResolutionReport.setPlanForSetDays(Math.floor(userResolutionReport.getNumberOfDays() * userResolution.getWeeklyPlan() * 100 / 7.0) / 100);
@@ -109,7 +108,7 @@ public class ReportController {
             unitsSum = 0;
         }
         double average = Math.floor((realizationSum * 100) / userResolutionReports.size()) / 100;
-        if(average>100){
+        if (average > 100) {
             average = 100;
         }
         Gson gson = new Gson();
