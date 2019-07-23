@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.resolutions.entity.Resolution;
-import pl.resolutions.entity.UserResolution;
 
 import java.util.List;
 

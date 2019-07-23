@@ -64,29 +64,13 @@
                 </table>
             </div>
             <div class="text-center">
-            <a href="/activity/add" class="btn btn-add btn-lg">Add new activity</a>
+            <a href="/activity/add/${activity.userResolution.id}" class="btn btn-add btn-lg">Add new activity</a>
             </div>
         </div>
     </div>
 
 </div>
 
-
-
-
-
-<%--<h3>Name: </h3>${activity.userResolution.name}--%>
-<%--<h3>Resolution type: </h3>${activity.userResolution.resolution.name}--%>
-<%--<h3>Date: </h3>${activity.date}--%>
-<%--<h3>Units of activity: </h3>${activity.unitsOfActivity}--%>
-<%--<h3>Note: </h3>${activity.note}--%>
-<%--<br><br>--%>
-<%--<c:if test="${activity.userResolution.active}">--%>
-<%--<a href="/activity/add/${activity.userResolution.id}">Add new activity</a><br>--%>
-<%--</c:if>--%>
-<%--<a href="/resolution/details/${activity.userResolution.id}">Show resolution details</a><br>--%>
-<%--<a href="/activity/dashboard">Show activities dashboard</a><br>--%>
-<%--<a href="/resolution/dashboard">Show resolution dashboard</a>--%>
 <br>
 <%@include file="../fragments/footer.jspf"%>
 
