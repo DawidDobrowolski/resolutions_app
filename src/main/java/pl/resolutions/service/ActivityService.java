@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -52,6 +53,9 @@ public class ActivityService {
         for (UserResolution userResolution:userResolutions){
             activities.addAll(activityRepository.getActivitiesByUserResolution(userResolution));
         }
+        activities = activities.stream()
+                .sorted((a1, a2) -> a2.getDate().compareTo(a1.getDate()))
+                .collect(Collectors.toList());
         return activities;
     }
 

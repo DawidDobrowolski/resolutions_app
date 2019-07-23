@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -53,6 +54,10 @@ public class ResolutionService {
         for (UserResolution userResolution : userResolutionList) {
             userResolution.setLastActivitiesUnits(getLastActivitiesUnits(userResolution));
         }
+        userResolutionList = userResolutionList.stream()
+                .sorted((ur1, ur2) -> ur2.getStartDate().compareTo(ur1.getStartDate()))
+                .sorted((ur1, ur2) -> Boolean.compare(ur2.isActive(), ur1.isActive()))
+                .collect(Collectors.toList());
         return userResolutionList;
     }
 
@@ -97,6 +102,9 @@ public class ResolutionService {
     public UserResolution getOneUserResolution(Long id) {
         UserResolution userResolution = userResolutionRepository.findOne(id);
         Hibernate.initialize(userResolution.getActivities());
+        userResolution.setActivities(userResolution.getActivities().stream()
+                .sorted((a1, a2) -> a2.getDate().compareTo(a1.getDate()))
+                .collect(Collectors.toList()));
         userResolution.setLastActivitiesUnits(getLastActivitiesUnits(userResolution));
         return userResolution;
     }

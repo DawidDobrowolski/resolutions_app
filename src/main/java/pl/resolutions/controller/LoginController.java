@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.resolutions.entity.User;
-import pl.resolutions.repository.UserRepository;
 import pl.resolutions.service.LoginService;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

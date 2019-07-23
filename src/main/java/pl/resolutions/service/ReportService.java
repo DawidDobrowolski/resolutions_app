@@ -14,9 +14,11 @@ import pl.resolutions.support.UserResolutionReport;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -80,6 +82,10 @@ public class ReportService {
             userResolutionReports.add(userResolutionReport);
             unitsSum = 0;
         }
+
+        userResolutionReports = userResolutionReports.stream()
+                .sorted(Comparator.comparingDouble(urr -> urr.getResolutionRealization()))
+                .collect(Collectors.toList());
         return userResolutionReports;
 
     }
