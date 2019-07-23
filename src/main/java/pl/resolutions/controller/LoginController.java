@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.resolutions.entity.User;
 import pl.resolutions.repository.UserRepository;
+import pl.resolutions.service.LoginService;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +24,16 @@ import javax.validation.Valid;
 public class LoginController {
 
 
-    private UserRepository userRepository;
+    private LoginService loginService;
+
 
     @Autowired
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
     }
+
+
+
 
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
@@ -48,14 +53,14 @@ public class LoginController {
             return "login/register";
         }
 
-        if (userRepository.getByEmail(user.getEmail()) != null) {
+        if (loginService.getUserByEmail(user.getEmail()) != null) {
             result.addError(new FieldError("user", "email", "User already exist"));
             return "login/register";
         }
 
 
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        userRepository.save(user);
+        loginService.saveUser(user);
         return "redirect:login";
     }
 
@@ -74,7 +79,7 @@ public class LoginController {
         }
         User existingUser = null;
         if (success) {
-            existingUser = userRepository.getByEmail(email);
+            existingUser = loginService.getUserByEmail(email);
             if (existingUser == null) {
                 success = false;
             } else if (!BCrypt.checkpw(password, existingUser.getPassword())) {

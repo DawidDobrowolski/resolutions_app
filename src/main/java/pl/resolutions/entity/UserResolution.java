@@ -10,8 +10,6 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user_resolution")
@@ -47,6 +45,8 @@ public class UserResolution {
 
     private boolean active = true;
 
+    @Transient
+    private int lastActivitiesUnits;
 
     @Column(name = "email_reminder")
     private boolean emailReminder = false;
@@ -57,7 +57,7 @@ public class UserResolution {
     @ManyToOne
     private Resolution resolution;
 
-    @OneToMany(mappedBy = "userResolution",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userResolution")
     private List<Activity> activities = new ArrayList<>();
 
     public Long getId() {
@@ -153,31 +153,31 @@ public class UserResolution {
         this.endDate = endDate;
     }
 
-    public List<Activity> getLastActivities() {
-        Date now = new Date();
-        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(7));
-        return activities.stream()
-                .filter(a -> a.getDate().after(sevenDaysAgo))
-                .collect(Collectors.toList());
-    }
-
     public int getLastActivitiesUnits() {
-        Date now = new Date();
-        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(7));
-        return activities.stream()
-                .filter(a -> a.getDate().after(sevenDaysAgo))
-                .mapToInt(a -> a.getUnitsOfActivity())
-                .sum();
+        return lastActivitiesUnits;
     }
 
-    public int getForDaysActivitiesUnits(int days) {
-        Date now = new Date();
-        Date setDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(days));
-        return activities.stream()
-                .filter(a -> a.getDate().after(setDaysAgo))
-                .mapToInt(a -> a.getUnitsOfActivity())
-                .sum();
+    public void setLastActivitiesUnits(int lastActivitiesUnits) {
+        this.lastActivitiesUnits = lastActivitiesUnits;
     }
+
+    //    public int getLastActivitiesUnits() {
+//        Date now = new Date();
+//        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(7));
+//        return activities.stream()
+//                .filter(a -> a.getDate().after(sevenDaysAgo))
+//                .mapToInt(a -> a.getUnitsOfActivity())
+//                .sum();
+//    }
+//
+//    public int getForDaysActivitiesUnits(int days) {
+//        Date now = new Date();
+//        Date setDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(days));
+//        return activities.stream()
+//                .filter(a -> a.getDate().after(setDaysAgo))
+//                .mapToInt(a -> a.getUnitsOfActivity())
+//                .sum();
+//    }
 
     @Override
     public String toString() {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.resolutions.entity.Activity;
 import pl.resolutions.entity.Resolution;
 import pl.resolutions.entity.User;
 import pl.resolutions.entity.UserResolution;
@@ -18,7 +19,9 @@ import pl.resolutions.repository.UserResolutionRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Controller
@@ -59,7 +62,7 @@ public class RankingController {
             UserResolutionRanking userResolutionRanking = new UserResolutionRanking();
             List<UserResolution> userResolutions = userResolutionRepository.getAllByUserAndResolutionId(user, id);
             for (UserResolution userResolution : userResolutions) {
-                sumUnits += userResolution.getForDaysActivitiesUnits(30);
+                sumUnits += getLastActivitiesUnits(userResolution,30);
             }
             userResolutionRanking.setUser(user.getName());
             userResolutionRanking.setSumUnits(sumUnits);
@@ -75,5 +78,15 @@ public class RankingController {
         model.addAttribute("resolution",resolutionRepository.findOne(id));
         return "/ranking/ranking";
 
+    }
+
+    public int getLastActivitiesUnits(UserResolution userResolution, int days) {
+        Date now = new Date();
+        Date sevenDaysAgo = new Date(now.getTime() - TimeUnit.DAYS.toMillis(days));
+        List<Activity> activities = activityRepository.getActivitiesByUserResolution(userResolution);
+        return activities.stream()
+                .filter(a -> a.getDate().after(sevenDaysAgo))
+                .mapToInt(a -> a.getUnitsOfActivity())
+                .sum();
     }
 }
