@@ -1,5 +1,6 @@
 package pl.resolutions.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class UserResolution {
     @Min(1)
     private Integer weeklyPlan;
 
-    @NotNull
+    @NotBlank
     @Size(max = 30)
     private String name;
 

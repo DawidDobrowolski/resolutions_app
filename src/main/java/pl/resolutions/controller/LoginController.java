@@ -52,16 +52,19 @@ public class LoginController {
             result.addError(new FieldError("user", "email", "User already exist"));
             return "login/register";
         }
+
+
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
         return "redirect:login";
     }
 
-    // normalnie trzeba by uzyc grup walidacyjnych
+
     @GetMapping("/login")
     public String displayLoginForm() {
         return "login/login";
     }
+
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request) {
