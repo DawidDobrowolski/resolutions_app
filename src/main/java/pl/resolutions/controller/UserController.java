@@ -35,7 +35,7 @@ private UserService userService;
 
 
     @GetMapping("/list")
-    public String dashboardPage() {
+    public String userList() {
          return "/user/list";
     }
 
@@ -54,7 +54,7 @@ private UserService userService;
     }
 
     @PostMapping("/edit")
-    public String saveEditUser(@Validated({EditUser.class}) User user, BindingResult result, HttpServletRequest request) {
+    public String editUser(@Validated({EditUser.class}) User user, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "user/edit";
         }

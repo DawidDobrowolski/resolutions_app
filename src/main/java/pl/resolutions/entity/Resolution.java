@@ -21,7 +21,6 @@ public class Resolution {
     @NotBlank
     private String unit;
 
-    @NotNull
     private Integer unitMin;
 
 
