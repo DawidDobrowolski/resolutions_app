@@ -2,8 +2,12 @@ package pl.resolutions.entity;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import pl.resolutions.validation.EditPassword;
+import pl.resolutions.validation.EditUser;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,24 +18,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(groups = {EditUser.class, Default.class})
     @Column(name = "first_name")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(groups = {EditUser.class, Default.class})
     @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank
-    @Email
+    @NotBlank(groups = {EditUser.class, Default.class})
+    @Email(groups = {EditUser.class, Default.class})
     @Column(unique = true)
     private String email;
 
-    @NotBlank
+    @NotBlank(groups = {EditPassword.class, Default.class})
+    @Size(min = 8,groups = {EditPassword.class, Default.class})
     private String password;
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<UserResolution> userResolutions = new ArrayList<>();
 
     private boolean admin = false;

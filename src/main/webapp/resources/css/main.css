@@ -7,8 +7,9 @@ body {
     height: 100%;
     background-image: url(http://serwer1786337.home.pl/formularz/home_page.jpg);
     background-size: 100% 100%;
-}​
+}
 
+​
 .error {
     color: red;
 }
@@ -26,6 +27,7 @@ header {
     margin-bottom: 0px;
     font-size: 20px;
 }
+
 .sub-table {
     padding: 20px 0 5px;
     border-bottom: 2px solid #4e69a2;
@@ -46,8 +48,15 @@ header {
     border-bottom: 1px solid #133783;
 }
 
+.dropdown-item {
+    font-size: 20px;
+    font-weight: bold;
+    color: black !important;
+}
+
 .navbar-blue a {
     color: white !important;
+
 }
 
 .navbar-blue a:hover {
@@ -76,8 +85,8 @@ header {
     border-color: green;
 }
 
-.nav-item > a{
-    margin-right:10px;
+.nav-item > a {
+    margin-right: 10px;
 }
 
 .form-check-input {
@@ -86,7 +95,7 @@ header {
     margin-left: -1.25rem;
 }
 
-.chart-title{
+.chart-title {
     background-color: white;
     text-align: center;
     font-weight: bold;
@@ -94,7 +103,7 @@ header {
 
 }
 
-.table-top{
+.table-top {
     background-color: white;
     text-align: center;
     font-size: 30px;
@@ -102,4 +111,6 @@ header {
     padding-top: 10px;
 
 }
+
+
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.resolutions.entity.Activity;
 import pl.resolutions.entity.Resolution;
-import pl.resolutions.entity.User;
 import pl.resolutions.entity.UserResolution;
 import pl.resolutions.repository.ActivityRepository;
 import pl.resolutions.repository.ResolutionRepository;

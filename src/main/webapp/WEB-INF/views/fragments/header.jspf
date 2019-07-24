@@ -49,7 +49,25 @@
                         <a class="btn btn-secondary active" href='/login/login'>Login</a>
                     </c:when>
                     <c:otherwise>
-                        <a class="btn btn-secondary" href='/login/logout'>Logout</a>
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle active" href="#" role="button"
+                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hello ${firstName}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <button class="dropdown-item" type="button" onclick="window.location.href='/login/edit'">Edit your profile</button>
+                                <button class="dropdown-item" type="button" onclick="window.location.href='/login/changePassword'">Change password</button>
+                                <c:choose>
+                                    <c:when test="${admin}">
+                                        <div class="dropdown-divider"></div>
+                                        <button class="dropdown-item" type="button">Manage resolutions</button>
+                                        <button class="dropdown-item" type="button">Manage users</button>
+                                    </c:when>
+                                </c:choose>
+                            </div>
+                        </div>
+                        &nbsp;&nbsp
+                        <a class="btn btn-secondary active" href='/login/logout'>Logout</a>
                     </c:otherwise>
                 </c:choose>
             </form>

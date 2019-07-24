@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.resolutions.entity.Activity;
 import pl.resolutions.entity.UserResolution;
 import pl.resolutions.repository.ActivityRepository;
-import pl.resolutions.repository.UserRepository;
 import pl.resolutions.repository.UserResolutionRepository;
 import pl.resolutions.support.UserResolutionReport;
 
@@ -28,17 +27,14 @@ public class ReportService {
 
     private UserResolutionRepository userResolutionRepository;
     private ActivityRepository activityRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public ReportService(UserResolutionRepository userResolutionRepository, ActivityRepository activityRepository, UserRepository userRepository) {
+    public ReportService(UserResolutionRepository userResolutionRepository, ActivityRepository activityRepository) {
         this.userResolutionRepository = userResolutionRepository;
         this.activityRepository = activityRepository;
-        this.userRepository = userRepository;
     }
 
-
-    public List<UserResolutionReport> getUserResolutionReportData(Date from,  Date to, HttpServletRequest request) {
+    public List<UserResolutionReport> getUserResolutionReportData(Date from, Date to, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
 
