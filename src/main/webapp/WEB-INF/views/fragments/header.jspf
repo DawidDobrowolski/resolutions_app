@@ -60,8 +60,8 @@
                                 <c:choose>
                                     <c:when test="${admin}">
                                         <div class="dropdown-divider"></div>
-                                        <button class="dropdown-item" type="button">Manage resolutions</button>
-                                        <button class="dropdown-item" type="button">Manage users</button>
+                                        <button class="dropdown-item" type="button" onclick="window.location.href='/resolutionType/list'">Manage resolutions</button>
+                                        <button class="dropdown-item" type="button" onclick="window.location.href='/user/list'">Manage users</button>
                                     </c:when>
                                 </c:choose>
                             </div>

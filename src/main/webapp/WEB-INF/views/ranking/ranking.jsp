@@ -49,22 +49,6 @@
 
 </div>
 
-
-<%--<h2>RANKING</h2>--%>
-<%--<h3>RANKING FOR LAST 30 DAYS FOR FOLLOWING RESOLUTION: ${resolution.name}</h3>--%>
-<%--<table border="1">--%>
-<%--    <tr>--%>
-<%--        <th>User</th>--%>
-<%--        <th>Units made</th>--%>
-<%--    </tr>--%>
-<%--    <c:forEach items="${userResolutionRankings}" var="userResolutionRanking">--%>
-<%--        <tr>--%>
-<%--            <td>${userResolutionRanking.user.name}</td>--%>
-<%--            <td>${userResolutionRanking.sumUnits}</td>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
-<%--</table>--%>
-
 <br>
 <%@include file="../fragments/footer.jspf"%>
 </body>
