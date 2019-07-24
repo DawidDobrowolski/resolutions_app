@@ -61,7 +61,11 @@ public class ActivityController {
     @GetMapping("/add/{id}")
     public String addActivityToUserResolution(Model model, @PathVariable Long id, HttpServletRequest request) {
         Activity activity = new Activity();
-        activity.setUserResolution(activityService.getUserResolutionById(id));
+        UserResolution userResolution = activityService.getUserResolutionById(id);
+        if(!userResolution.isActive()){
+            return "redirect:/activity/dashboard";
+        }
+        activity.setUserResolution(userResolution);
         List<UnitsName> unitsNames = activityService.getUnitsNames(request);
         Gson gson = new Gson();
         model.addAttribute("unitsNames", gson.toJson(unitsNames));
