@@ -5,7 +5,7 @@ Final project for CodersLab <b>Java Developer Web</b> programming bootcamp
 Resolution Application helps people plan and fulfill their resolutions. User can easily add new resolution in order to track fulfillment vs set plan. Application is created in user friendly way. User can find there clear and simple design which is focused on resolution fulfillment. Additional charts, rankings and tables show progress of undertaken resolutions.
 
 ## Used technologies
-<b>Backend:</b>
+<b>Back-end:</b>
 * Maven
 * Spring MVC
 * Spring Context
@@ -26,7 +26,7 @@ Resolution Application helps people plan and fulfill their resolutions. User can
 * JPQL
 * Tomcat
 
-<b>Frontend:</b>
+<b>Front-end:</b>
 * JSP
 * Java Standard Tag Library
 * JavaScript
