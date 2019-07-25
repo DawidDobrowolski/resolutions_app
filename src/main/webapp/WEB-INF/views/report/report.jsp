@@ -72,31 +72,6 @@
     </div>
 </div>
 
-
-
-
-<%--<h2>REPORT</h2>--%>
-<%--<h3>RESOLUTIONS FOR DATE BETWEEN ${from} AND ${to} </h3>--%>
-<%--<table border="1">--%>
-<%--    <tr>--%>
-<%--        <th>Name</th>--%>
-<%--        <th>Type of resolution</th>--%>
-<%--        <th>Number of days</th>--%>
-<%--        <th>Plan for set days</th>--%>
-<%--        <th>Units in activities</th>--%>
-<%--    </tr>--%>
-<%--    <c:forEach items="${userResolutionReports}" var="userResolutionReport">--%>
-<%--        <tr>--%>
-<%--            <td>${userResolutionReport.userResolution.name}</td>--%>
-<%--            <td>${userResolutionReport.userResolution.resolution.name}</td>--%>
-<%--            <td>${userResolutionReport.numberOfDays}</td>--%>
-<%--            <td>${userResolutionReport.planForSetDays}</td>--%>
-<%--            <td>${userResolutionReport.unitsInActions}</td>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
-<%--</table>--%>
-
-<%--<h3>Average realization of resolutions is ${userResolutionAverageRealization} %</h3>--%>
 <br>
 <%@include file="../fragments/footer.jspf"%>
 

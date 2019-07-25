@@ -81,7 +81,5 @@
 
 <br>
 <%@include file="../fragments/footer.jspf" %>
-
-
 </body>
 </html>

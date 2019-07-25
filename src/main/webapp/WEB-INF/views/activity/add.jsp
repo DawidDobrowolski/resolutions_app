@@ -26,9 +26,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <form:hidden path="id" />
+                    <form:hidden path="id"/>
                     <label>Resolution:</label>
-                    <br><form:select id="selectResolution" path="userResolution" items="${userResolutions}" itemLabel="name" itemValue="id" class="form-control"/>
+                    <br><form:select id="selectResolution" path="userResolution" items="${userResolutions}"
+                                     itemLabel="name" itemValue="id" class="form-control"/>
                     <form:errors path="userResolution" element="div class='alert alert-danger'"/><br>
                 </div>
                 <div class="form-group">
@@ -56,25 +57,7 @@
         </div>
     </div>
 </form:form>
-
-
-
-<%--    <form:form method="post" action="/activity/add" modelAttribute="activity">--%>
-<%--        <form:hidden path="id"/>--%>
-<%--        Resolution: <br><form:select path="userResolution" items="${userResolutions}" itemLabel="name"--%>
-<%--                                     itemValue="id"/><br>--%>
-<%--        Date: <form:input type="date" path="date"/>--%>
-<%--        <form:errors path="date"/><br>--%>
-<%--        Units of activity: <form:input type="number" path="unitsOfActivity"/>--%>
-<%--        <form:errors path="unitsOfActivity"/><br>--%>
-<%--        Note: <br><form:textarea path="note" rows="3" cols="20"/>--%>
-<%--        <form:errors path="note"/><br>--%>
-<%--        <input type="submit" value="Save"/>--%>
-<%--    </form:form>--%>
-
-
-    <%@include file="../fragments/footer.jspf" %>
-
-
-    </body>
-    </html>
+<br>
+<%@include file="../fragments/footer.jspf" %>
+</body>
+</html>

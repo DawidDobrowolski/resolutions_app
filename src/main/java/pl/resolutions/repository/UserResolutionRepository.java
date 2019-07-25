@@ -21,5 +21,7 @@ public interface UserResolutionRepository extends JpaRepository<UserResolution,L
 
     List<UserResolution> getAllByUserAndResolutionId(User user, Long id);
 
+    List<UserResolution> getAllByUserAndEmailReminderIsTrue(User user);
+
 
 }

@@ -73,29 +73,7 @@
     </div>
 </form:form>
 
-
-
-
-<%--<form:form method="post" action="/resolution/add" modelAttribute="userResolution">--%>
-<%--    <form:hidden path="id" />--%>
-<%--    Resolution: <br><form:select path="resolution" items="${resolutions}" itemLabel="name" itemValue="id"/>--%>
-<%--    <form:errors path="resolution"/><br>--%>
-<%--    Name: <form:input type="text" path="name"/>--%>
-<%--    <form:errors path="name"/><br>--%>
-<%--    Start date: <form:input type="date" path="startDate"/>--%>
-<%--    <form:errors path="startDate"/><br>--%>
-<%--    Description: <br><form:textarea path="description" rows="3" cols="20"/>--%>
-<%--    <form:errors path="description"/><br>--%>
-<%--    Weekly plan: <form:input type="number" path="weeklyPlan"/>--%>
-<%--    <form:errors path="weeklyPlan"/><br>--%>
-<%--    E-mail remainder: <form:checkbox path="emailReminder"/>--%>
-<%--    <form:errors path="emailReminder"/><br>--%>
-<%--    Is active: <form:checkbox path="active"/>--%>
-<%--    <form:errors path="active"/><br>--%>
-<%--    <input type="submit" value="Save"/>--%>
-<%--</form:form>--%>
-
-
+<br>
 <%@include file="../fragments/footer.jspf" %>
 
 </body>
