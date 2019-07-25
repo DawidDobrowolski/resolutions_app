@@ -57,7 +57,7 @@ public class UserResolution {
     @ManyToOne
     private Resolution resolution;
 
-    @OneToMany(mappedBy = "userResolution")
+    @OneToMany(mappedBy = "userResolution", cascade = CascadeType.REMOVE)
     private List<Activity> activities = new ArrayList<>();
 
     public Long getId() {

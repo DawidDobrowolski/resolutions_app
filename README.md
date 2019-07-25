@@ -30,7 +30,7 @@ Resolution Application helps people plan and fulfill their resolutions. User can
 * JSP
 * Java Standard Tag Library
 * JavaScript
-* JQuery
+* jQuery
 * Events
 * JSON
 * Google Charts

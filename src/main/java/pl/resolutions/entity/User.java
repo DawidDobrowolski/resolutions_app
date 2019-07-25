@@ -36,7 +36,7 @@ public class User {
     private String password;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserResolution> userResolutions = new ArrayList<>();
 
     private boolean admin = false;
