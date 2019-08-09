@@ -8,7 +8,7 @@
 <footer id="sticky-footer" class="py-1 bg-footer text-white-50">
     <div class="container text-center">
         <small>Copyright &copy; Dawid Dobrowolski 2019</small><br>
-        <small>Contact information: <a style="color: rgba(255, 255, 255, 0.8)" href="mailto:dawidek66@gmail.com">dawidek66@gmail.com</a></small>
+        <small>Contact information: <a style="color: rgba(255, 255, 255, 0.8)" href="mailto:dawid.dobrowolski@domado.pl">dawid.dobrowolski@domado.pl</a></small>
     </div>
 </footer>
 <!-- Footer -->
