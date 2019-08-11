@@ -1,2 +1,2 @@
-INSERT INTO Resolution(name, unit, unitMin) VALUES ("Reading Books","minutes",15),("Running","km",1),("Meet new people","people",1);
+INSERT INTO Resolution(name, unit, unitMin) VALUES ("Reading Books","min",15),("Running","km",1),("Meet new people","people",1);
 INSERT INTO User(email, first_name, last_name, password,admin) VALUES ("dawidek66@gmail.com","Dawid","Dobrowolski","$2a$10$Nk25rLKfP9SArcpgILIRHO.vbrWqfXHEVDXFXZTToHQvuBqGA.Pce",true),("test@test.com","Adam","Smith","$2a$10$9BWXHjIP37mI7ay46WeEyOoIZcAICsQhnzINHRGhUjvfosCJ",false);
