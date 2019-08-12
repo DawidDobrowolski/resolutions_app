@@ -3,6 +3,11 @@ Final project for CodersLab <b>Java Developer Web</b> programming bootcamp
 
 ## Application live
 <a rel="noopener noreferrer" target="_blank" href="http://resolutionsapp.us-east-2.elasticbeanstalk.com/">Test app</a>
+<br>
+<br>
+Test profile:
+* login: test@test.com
+* password: password
 
 ## About application
 Resolution Application helps people plan and fulfill their resolutions. User can easily add new resolution in order to track fulfillment vs set plan. Application is created in user friendly way. User can find there clear and simple design which is focused on resolution fulfillment. Additional charts, rankings and tables show progress of undertaken resolutions.
