@@ -22,6 +22,8 @@ public class HomeController {
         return "top";
     }
 
-
-
+    @GetMapping("/error")
+    public String showErrorPage(){
+        return "error";
+    }
 }
